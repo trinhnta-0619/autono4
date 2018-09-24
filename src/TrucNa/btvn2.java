@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
-public class btvn1 {
+public class btvn2 {
 
 	public static void main(String[]args) {
 		System.setProperty("webdriver.gecko.driver", "lib/geckodriver");
@@ -16,7 +16,9 @@ public class btvn1 {
 		WebDriver driver= new ChromeDriver();
 		
 		driver.get("http://demo.guru99.com/test/newtours/register.php");
-
+		
+		Actions action = new Actions(driver);
+		
 		String firstName = "Nguyen";
 		String lastName = "Thi Truc Na";
 		String phone = "01694992319";
@@ -27,7 +29,7 @@ public class btvn1 {
 		String postalcode = "01";
 		String email = "nguyendaisytp@gmail.com";
 		String password = "123456";
-		
+				
 		//register
 		driver.findElement(By.name("firstName")).sendKeys(firstName);
         driver.findElement(By.name("lastName")).sendKeys(lastName);
@@ -44,8 +46,7 @@ public class btvn1 {
 		driver.findElement(By.name("confirmPassword")).sendKeys(password);
 		
 		WebElement submitE = driver.findElement(By.name("submit"));
-
-		submitE.click();
+		action.click(submitE).build().perform();
 		
 		//check info
 		String expected = "Note: Your user name is " + email +".";
@@ -53,19 +54,20 @@ public class btvn1 {
 		
 		if (expected.equals(actual)) {
 			WebElement signinE = driver.findElement(By.linkText("sign-in"));
-			signinE.click();
+			action.click(signinE).build().perform();
 			
 			//sign in
 			driver.findElement(By.name("userName")).sendKeys(email);
 			driver.findElement(By.name("password")).sendKeys(password);
 			
 			WebElement submitE1 = driver.findElement(By.name("submit"));
-			submitE1.click();
+			action.click(submitE1).build().perform();
 		}
 		else
 		{
 			System.out.println("Login fail, please check again");
-		}	
+		}
+	
 	}
 }
 
